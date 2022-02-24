@@ -23,8 +23,6 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
 
-name: Build and Push to ECR
-
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
