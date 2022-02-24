@@ -34,12 +34,19 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build and Push the Image to Amazon ECR
+    - name: Build 
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: ci-cd
-
-      run: |
+      run: 
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY .
+        
+    - name: Push the Image to Amazon ECR
+      id: push-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ci-cd
+
+      run: 
         docker push $ECR_REGISTRY/$ECR_REPOSITORY
